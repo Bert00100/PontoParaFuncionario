@@ -1,0 +1,22 @@
+html, body {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+}
+
+.container {
+    flex: 1; /* O container irá crescer e ocupar o espaço disponível */
+}
+
+.footer {
+    background-color: #f8f9fa;
+    text-align: center;
+    width: 100%;
+    position: relative;
+    bottom: 0;
+    padding: 10px 0;
+}
