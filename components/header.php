@@ -24,6 +24,9 @@
                     <a class="nav-link" href="../views/register.php">Registrar</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="../views/declaretion.php">Declaracao</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="../views/login.php">Login</a>
                 </li>
                 <li class="nav-item">

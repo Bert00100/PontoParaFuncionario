@@ -1,4 +1,3 @@
-<!-- /views/login.php -->
 <?php
 session_start();
 include_once "../components/header.php";
@@ -14,22 +13,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $conn = $database->getConnection();
 
     // Verifica se o email existe no banco
-    $query = "SELECT id, name, password FROM employees WHERE email = :email";
+    $query = "SELECT id, name, password, role FROM employees WHERE email = :email";
     $stmt = $conn->prepare($query);
     $stmt->bindParam(':email', $email);
     $stmt->execute();
 
     if ($stmt->rowCount() > 0) {
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
-        $hashed_password = $row['password'];
+        $stored_password = $row['password'];
 
         // Verifica se a senha está correta
-        if (password_verify($password, $hashed_password)) {
-            // Iniciar a sessão e armazenar o ID do funcionário
+        if ($password === $stored_password) {
+            // Iniciar a sessão e armazenar o ID e o cargo do funcionário
             $_SESSION['employee_id'] = $row['id'];
             $_SESSION['employee_name'] = $row['name'];
+            $_SESSION['employee_role'] = $row['role']; // Armazena o cargo na sessão
 
-            // Redirecionar para a página de Attendance
+            // Redirecionar para a página de Attendance ou outra página principal
             header("Location: attendance.php");
             exit();
         } else {
@@ -55,4 +55,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </form>
 
 <?php include_once "../components/footer.php"; ?>
-

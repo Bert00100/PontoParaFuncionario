@@ -1,7 +1,7 @@
 -- Apagar o banco de dados se ele existir
 DROP DATABASE IF EXISTS attendance_db;
 
--- Criar o banco de dados novamente
+-- Criar o banco    de dados novamente
 CREATE DATABASE attendance_db;
 
 -- Usar o banco de dados recém-criado
@@ -30,6 +30,19 @@ CREATE TABLE IF NOT EXISTS attendance (
     FOREIGN KEY (employee_id) REFERENCES employees(id) ON DELETE CASCADE
 );
 
+CREATE TABLE IF NOT EXISTS declaration (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    employee_id INT NOT NULL,
+    declaration_date DATE NOT NULL,  -- Data do atraso
+    entry_time TIME NOT NULL,  -- Hora de entrada
+    exit_time TIME NOT NULL,  -- Hora de saída
+    reason TEXT NOT NULL,  -- Motivo do atraso
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (employee_id) REFERENCES employees(id) ON DELETE CASCADE
+);
+
+
+
 -- Criar um índice para melhorar a performance em consultas pela data
 CREATE INDEX idx_attendance_date ON attendance(date);
 
@@ -53,4 +66,13 @@ INSERT INTO attendance (employee_id, clock_in, clock_in_lunch_start, clock_in_lu
 INSERT INTO attendance (employee_id, clock_in, date) VALUES
 (1, '2024-09-22 08:00:00', '2024-09-22'),
 (2, '2024-09-22 08:05:00', '2024-09-22');
+
+INSERT INTO employees (name, email, password, role) 
+VALUES ('Admin User', 'admin@example.com', 'admin123', 'admin');
+
+select * from employees;
+select * from declaration;
+DELETE FROM employees;
+
+drop table declaration;
 
