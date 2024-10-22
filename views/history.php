@@ -7,9 +7,9 @@ if (!isset($_SESSION['employee_id'])) {
     exit();
 }
 
-// Inclui o cabeçalho correto com base no cargo do usuário
+// Inclui o cabeçalho correto
+include_once "../components/header.php";
 include_once "../config/database.php";
-include_once (isset($_SESSION['employee_role']) && $_SESSION['employee_role'] === 'admin') ? "../components/header.php" : "../components.header2.php";
 
 // Conectar ao banco de dados
 $database = new Database();
@@ -41,15 +41,6 @@ $stmt->bindParam(':employee_id', $selected_employee_id);
 $stmt->execute();
 $attendances = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
-
-<style>
-    /* Garantir que o conteúdo não quebre linha dentro da célula */
-    .nowrap-cell {
-        white-space: nowrap;
-        text-overflow: ellipsis;
-        overflow: hidden;
-    }
-</style>
 
 <div class="container mt-5">
     <h2 class="mb-4">Histórico de Pontos</h2>
