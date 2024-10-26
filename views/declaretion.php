@@ -26,17 +26,19 @@ if ($role === 'admin' && isset($_POST['selected_employee_id'])) {
 
 // Processa o formulário de registro de atraso se enviado
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['register_declaration'])) {
-    $declaration_date = $_POST['declaration_date'];
+    $declaration_date_start = $_POST['declaration_date_start'];
+    $declaration_date_end = $_POST['declaration_date_end'];
     $entry_time = $_POST['entry_time'];
     $exit_time = $_POST['exit_time'];
     $reason = $_POST['reason'];
 
     // Insere a declaração de atraso
-    $query = "INSERT INTO declaration (employee_id, declaration_date, entry_time, exit_time, reason) 
-              VALUES (:employee_id, :declaration_date, :entry_time, :exit_time, :reason)";
+    $query = "INSERT INTO declaration (employee_id, declaration_date_start, declaration_date_end, entry_time, exit_time, reason) 
+              VALUES (:employee_id, :declaration_date_start, :declaration_date_end, :entry_time, :exit_time, :reason)";
     $stmt = $conn->prepare($query);
     $stmt->bindParam(':employee_id', $employee_id);
-    $stmt->bindParam(':declaration_date', $declaration_date);
+    $stmt->bindParam(':declaration_date_start', $declaration_date_start);
+    $stmt->bindParam(':declaration_date_end', $declaration_date_end);
     $stmt->bindParam(':entry_time', $entry_time);
     $stmt->bindParam(':exit_time', $exit_time);
     $stmt->bindParam(':reason', $reason);
@@ -58,10 +60,10 @@ if ($role === 'admin') {
 }
 
 // Consulta o histórico de declarações
-$query = "SELECT id, declaration_date, entry_time, exit_time, reason 
+$query = "SELECT id, declaration_date_start, declaration_date_end, entry_time, exit_time, reason 
           FROM declaration
           WHERE employee_id = :employee_id
-          ORDER BY declaration_date DESC";
+          ORDER BY declaration_date_start DESC";
 $stmt = $conn->prepare($query);
 $stmt->bindParam(':employee_id', $selected_employee_id);
 $stmt->execute();
@@ -71,8 +73,12 @@ $declarations = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <h2>Registrar Atraso</h2>
 <form method="POST" action="" class="form-group">
     <div class="mb-3">
-        <label for="declaration_date" class="form-label">Data do Atraso</label>
-        <input type="date" name="declaration_date" class="form-control" required>
+        <label for="declaration_date_start" class="form-label">Data de Início do Atraso</label>
+        <input type="date" name="declaration_date_start" class="form-control" required>
+    </div>
+    <div class="mb-3">
+        <label for="declaration_date_end" class="form-label">Data de Fim do Atraso</label>
+        <input type="date" name="declaration_date_end" class="form-control" required>
     </div>
     <div class="mb-3">
         <label for="entry_time" class="form-label">Hora de Entrada</label>
@@ -110,7 +116,8 @@ $declarations = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <table class="table table-bordered">
     <thead>
         <tr>
-            <th>Data</th>
+            <th>Data de Início</th>
+            <th>Data de Fim</th>
             <th>Hora de Entrada</th>
             <th>Hora de Saída</th>
             <th>Motivo</th>
@@ -119,7 +126,8 @@ $declarations = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <tbody>
         <?php foreach ($declarations as $declaration): ?>
         <tr>
-            <td><?php echo htmlspecialchars($declaration['declaration_date']); ?></td>
+            <td><?php echo htmlspecialchars($declaration['declaration_date_start']); ?></td>
+            <td><?php echo htmlspecialchars($declaration['declaration_date_end']); ?></td>
             <td><?php echo htmlspecialchars($declaration['entry_time']); ?></td>
             <td><?php echo htmlspecialchars($declaration['exit_time']); ?></td>
             <td><?php echo htmlspecialchars($declaration['reason']); ?></td>
