@@ -1,22 +1,122 @@
-html, body {
+:root {
+    --primary-color: #2575fc;
+    --secondary-color: #6a11cb;
+    --dark-color: #343a40;
+    --light-color: #f8f9fa;
+}
+
+/* Reset completo */
+html {
     height: 100%;
 }
 
 body {
     display: flex;
     flex-direction: column;
+    min-height: 100vh;
     margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f5f7fa;
 }
 
+/* Container principal */
 .container {
-    flex: 1; /* O container irá crescer e ocupar o espaço disponível */
+    flex: 1 0 auto;
+    padding-bottom: 2rem;
 }
 
+/* Hero Section */
+.hero-section {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    background: linear-gradient(135deg, var(--secondary-color) 0%, var(--primary-color) 100%);
+}
+
+/* Cards */
+.card {
+    transition: all 0.3s ease;
+    border-radius: 12px !important;
+    overflow: hidden;
+    border: none;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15) !important;
+}
+
+/* Botões */
+.btn {
+    transition: all 0.3s ease;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Footer */
 .footer {
-    background-color: #f8f9fa;
-    text-align: center;
+    flex-shrink: 0;
+    background-color: var(--dark-color) !important;
+    color: white;
     width: 100%;
-    position: relative;
-    bottom: 0;
-    padding: 10px 0;
+    padding: 1.5rem 0;
+}
+
+/* Ícones */
+.icon-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.card:hover .icon-wrapper {
+    transform: scale(1.1);
+}
+
+/* Responsividade */
+@media (max-width: 992px) {
+    .hero-section {
+        padding: 3rem 1rem !important;
+    }
+    
+    .hero-section h1 {
+        font-size: 2.2rem !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding-bottom: 1.5rem;
+    }
+    
+    .hero-section {
+        padding: 2rem 1rem !important;
+    }
+    
+    .hero-section h1 {
+        font-size: 1.8rem !important;
+    }
+    
+    .card {
+        margin-bottom: 1.5rem;
+    }
+    
+    .footer {
+        padding: 1rem 0;
+    }
+}
+
+@media (max-width: 576px) {
+    .hero-section h1 {
+        font-size: 1.5rem !important;
+    }
+    
+    .btn {
+        padding: 0.375rem 0.75rem;
+        font-size: 0.9rem;
+    }
 }

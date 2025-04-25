@@ -3,7 +3,7 @@ class Database {
     private $host = "localhost";
     private $db_name = "attendance_db";
     private $username = "root";
-    private $password = "S3curity@300";
+    private $password = "admin";
     public $conn;
 
     public function getConnection() {

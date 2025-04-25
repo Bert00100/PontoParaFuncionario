@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS employees (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP  -- Data e hora de quando o funcionário foi criado
 );
 
--- Tabela de registro de de hora do relogio e data
+-- Tabela de registro de de hora do relogio e day
 CREATE TABLE IF NOT EXISTS attendance (
     id INT AUTO_INCREMENT PRIMARY KEY,  -- ID único para cada registro de ponto
     employee_id INT,  -- ID do funcionário (referência para a tabela "employees")
@@ -56,6 +56,7 @@ CREATE TABLE IF NOT EXISTS declaration (
 
 -- Criar um índice na coluna "date" da tabela "attendance" para melhorar a performance em buscas pela data
 CREATE INDEX idx_attendance_date ON attendance(date);
+
 
 
 -- Inserir um administrador de exemplo
