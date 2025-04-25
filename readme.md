@@ -1,22 +1,104 @@
-O que o Script Faz:
-Apagar e Recriar o Banco de Dados:
+# 🕒 Sistema de Relógio de Ponto Gratuito
 
-O banco de dados attendance_db será apagado e recriado.
-Criar as Tabelas employees e attendance:
+Este projeto é um sistema simples de **relógio de ponto** que pode ser usado gratuitamente por pequenos negócios, com cadastro de funcionários, login seguro, registro de ponto, horas extras e declarações de justificativa.  
+Desenvolvido como parte do Projeto Integrador Transdisciplinar em Análise e Desenvolvimento de Sistemas I.
 
-A tabela employees armazena os dados dos funcionários, e a tabela attendance armazena as marcações de ponto.
-Inserir Funcionários de Exemplo:
+---
 
-Três funcionários são adicionados: João Silva, Maria Santos e um usuário Admin. As senhas estão criptografadas com o algoritmo bcrypt.
-Inserir Registros de Ponto de Exemplo:
+## 🚀 O Que Este Script Faz
 
-São inseridos registros de ponto para os dias 20 e 21 de setembro de 2024 para João Silva e Maria Santos, com todas as quatro marcações (entrada, saída para almoço, volta do almoço e saída).
-Um registro para o dia 22 de setembro mostra funcionários que ainda não finalizaram o expediente (sem marcações de saída).
-Senhas de Exemplo:
-As senhas para os funcionários de exemplo são as mesmas e estão criptografadas:
-Senha original: password123
-Próximos Passos:
-Execute o Script no MySQL: Rode esse script no seu banco de dados MySQL para apagar o banco atual, recriá-lo e adicionar os registros de exemplo.
+### 🔄 Apaga e Recria o Banco de Dados
+- O banco `attendance_db` será excluído (caso exista) e recriado do zero.
 
-Testar o Sistema: Faça o cadastro no seu codigo e apos isso tente fazer login e registrar o ponto
+### 🧱 Cria as Tabelas Necessárias
+
+- `employees`: Armazena os dados dos funcionários e administradores.
+- `attendance`: Registra as marcações de ponto (entrada, almoço e saída).
+- `hora_extra`: Guarda as horas extras trabalhadas.
+- `declaration`: Permite o registro de declarações como atrasos e seus motivos.
+
+### 👨‍💼 Insere um Administrador de Exemplo
+- Nome: Admin User  
+- Email: admin@example.com  
+- Senha: admin123  
+- Cargo: admin
+
+---
+
+## 📌 Estrutura das Tabelas
+
+### `employees`
+- `id`: ID do funcionário (chave primária)
+- `name`: Nome
+- `email`: E-mail único
+- `password`: Senha (criptografada recomendável)
+- `role`: Cargo (ex: admin, employee)
+- `created_at`: Data de criação do cadastro
+
+### `attendance`
+- `id`: ID do registro de ponto
+- `employee_id`: Referência ao funcionário
+- `clock_in`, `clock_in_lunch_start`, `clock_in_lunch_end`, `clock_out`: Horários registrados
+- `date`: Data da marcação
+- `created_at`: Data de criação do registro
+
+### `hora_extra`
+- `id`: ID do registro de hora extra
+- `employee_id`: Referência ao funcionário
+- `clock_in`, `clock_out`: Horários de início e fim da hora extra
+- `date`: Data do registro
+- `created_at`: Data de criação
+
+### `declaration`
+- `id`: ID da declaração
+- `employee_id`: Referência ao funcionário
+- `declaration_date_start`, `declaration_date_end`: Período da justificativa
+- `entry_time`, `exit_time`: Horários da ocorrência
+- `reason`: Motivo da declaração
+- `created_at`: Data de criação
+
+---
+
+## ✅ Como Usar
+
+1. **Instale o XAMPP (ou outro ambiente com PHP + MySQL).**
+2. **Execute o script SQL em seu gerenciador de banco de dados (MySQL Workbench, DBeaver, phpMyAdmin, etc.):**
+   - Ele irá apagar o banco atual `attendance_db` (se existir), recriá-lo e configurar toda a estrutura necessária.
+3. **Configure o seu projeto PHP para conectar ao banco `attendance_db`.**
+4. **Acesse via navegador (`localhost` ou endereço configurado).**
+5. **Use o usuário Admin de exemplo para começar a cadastrar funcionários e gerenciar os pontos.**
+
+---
+
+## 🔧 Requisitos
+
+- PHP 7.4 ou superior  
+- MySQL 5.7 ou superior  
+- Navegador moderno  
+- Ambiente local (XAMPP, WAMP, Laragon, etc.)
+
+---
+
+## 🔒 Segurança Recomendada
+
+- Utilize **bcrypt** ou outro algoritmo seguro para criptografar as senhas.
+- Nunca armazene senhas em texto puro em produção.
+
+---
+
+## 📌 Próximos Passos
+
+- Interface para marcação de ponto via QR Code ou código do funcionário.
+- Geração de relatórios mensais (PDF/Excel).
+- Sistema de permissões mais robusto.
+- Modo mobile responsivo para tablets e celulares.
+
+---
+
+## 📜 Licença
+
+Este projeto é de uso **livre e gratuito**.  
+Sinta-se à vontade para usar em seu negócio local, adaptar ou contribuir com melhorias!
+
+---
 
