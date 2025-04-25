@@ -77,6 +77,62 @@ body {
     transform: scale(1.1);
 }
 
+/* Estilos específicos para a página de registro de ponto */
+.icon-circle {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Estilo para cards completos */
+.border-success {
+    border: 2px solid #28a745 !important;
+}
+
+/* Ajustes para o seletor de ações */
+.form-select-lg {
+    padding: 1rem 1.5rem;
+    font-size: 1.1rem;
+}
+
+/* Botão de registro */
+.btn-lg {
+    padding: 1rem;
+    font-size: 1.1rem;
+    letter-spacing: 0.5px;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .display-5 {
+        font-size: 2rem;
+    }
+    
+    .icon-circle {
+        width: 50px;
+        height: 50px;
+        font-size: 1.2rem;
+    }
+    
+    .form-select-lg, .btn-lg {
+        font-size: 1rem;
+    }
+}
+
 /* Responsividade */
 @media (max-width: 992px) {
     .hero-section {
